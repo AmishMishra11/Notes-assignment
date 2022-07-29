@@ -7,7 +7,7 @@ function Notes() {
 
   const { singleNote } = stateNotes;
 
-  const { title, body } = singleNote;
+  const { id, title, body, inTrash } = singleNote;
 
   const [oldTitle, setTitle] = useState("");
   const [oldBody, setBody] = useState("");
@@ -35,7 +35,27 @@ function Notes() {
 
   return (
     <div className="notes">
-      <h4>{title}</h4>
+      {inTrash && (
+        <div className="trashNote">
+          <h5>This is trash Note</h5>
+          <button
+            onClick={() =>
+              dispatchNotes({ type: "RESTORE_NOTE", payload: singleNote })
+            }
+          >
+            Restore
+          </button>
+          <button
+            onClick={() => dispatchNotes({ type: "DELETE_NOTE", payload: id })}
+          >
+            Delete
+          </button>
+        </div>
+      )}
+
+      <div className="notesHeader">
+        <h4>{title}</h4>
+      </div>
 
       <input
         className="notesTitle"

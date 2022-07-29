@@ -10,8 +10,11 @@
   justify-content: flex-start;
 }
 
-.notes h4 {
+.notes .notesHeader {
   width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .notes .notesTitle {
@@ -35,4 +38,27 @@
   color: black;
   font-size: large;
   font-weight: 400;
+}
+
+.notes .trashNote {
+  background-color: rgb(245, 78, 78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: white;
+}
+
+.notes .trashNote h5 {
+  margin-right: 2rem;
+}
+
+.notes .trashNote button {
+  cursor: pointer;
+  background: none;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+  margin: 0 5px;
+  padding: 5px 10px;
 }

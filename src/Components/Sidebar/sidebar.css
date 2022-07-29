@@ -1,6 +1,6 @@
 .sidebar {
   background-color: rgb(227, 227, 227);
-  width: 15%;
+  width: 20%;
   height: 100%;
 }
 
@@ -13,10 +13,26 @@
   width: 100%;
 }
 
+.notesName .allNotesDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+}
+
 .notesName .notesDisplay {
   cursor: pointer;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 80%;
+  width: 100%;
+}
+
+.notesName .trashIcon {
+  cursor: pointer;
+}
+
+.sidebar .trash {
+  cursor: pointer;
+  font-weight: 600;
 }

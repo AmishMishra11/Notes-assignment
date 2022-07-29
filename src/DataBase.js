@@ -7,6 +7,7 @@ export const Data = {
       createdAt: Date.now(),
       updatedAt: Date.now(),
       innerNotes: [],
+      inTrash: false,
     },
     {
       id: "02",
@@ -15,6 +16,7 @@ export const Data = {
       createdAt: Date.now(),
       updatedAt: Date.now(),
       innerNotes: [],
+      inTrash: false,
     },
     {
       id: "03",
@@ -23,6 +25,7 @@ export const Data = {
       createdAt: Date.now(),
       updatedAt: Date.now(),
       innerNotes: [],
+      inTrash: false,
     },
     {
       id: "04",
@@ -31,6 +34,7 @@ export const Data = {
       createdAt: Date.now(),
       updatedAt: Date.now(),
       innerNotes: [],
+      inTrash: false,
     },
     {
       id: "05",
@@ -39,6 +43,7 @@ export const Data = {
       createdAt: Date.now(),
       updatedAt: Date.now(),
       innerNotes: [],
+      inTrash: false,
     },
   ],
 };

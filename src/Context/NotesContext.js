@@ -7,7 +7,7 @@ const NoteContextProvider = ({ children }) => {
   const [stateNotes, dispatchNotes] = useReducer(noteReducer, {
     allNotes: [],
     singleNote: {},
-    allTrash: [],
+    trashNotes: [],
   });
 
   return (
