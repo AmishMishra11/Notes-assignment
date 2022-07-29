@@ -3,6 +3,13 @@
   width: 20%;
   height: 100%;
 }
+.sidebar .sidebarContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .sidebar .notesName {
   display: flex;
@@ -35,4 +42,18 @@
 .sidebar .trash {
   cursor: pointer;
   font-weight: 600;
+}
+
+.sidebar .addNote {
+  border-top: 1px solid rgb(62, 62, 62);
+  padding: 10px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sidebar .addNote:hover {
+  background-color: rgb(189, 189, 189);
 }

@@ -1,7 +1,7 @@
 export const Data = {
   Notes: [
     {
-      id: "01",
+      id: "1",
       title: "Amish",
       body: "Amish data",
       createdAt: Date.now(),
@@ -10,7 +10,7 @@ export const Data = {
       inTrash: false,
     },
     {
-      id: "02",
+      id: "2",
       title: "Mishra",
       body: "Mishra data",
       createdAt: Date.now(),
@@ -19,7 +19,7 @@ export const Data = {
       inTrash: false,
     },
     {
-      id: "03",
+      id: "3",
       title: "test",
       body: "test data",
       createdAt: Date.now(),
@@ -28,7 +28,7 @@ export const Data = {
       inTrash: false,
     },
     {
-      id: "04",
+      id: "4",
       title: "abcd",
       body: "efgh",
       createdAt: Date.now(),
@@ -37,7 +37,7 @@ export const Data = {
       inTrash: false,
     },
     {
-      id: "05",
+      id: "5",
       title: "Untitled",
       body: "Untitled",
       createdAt: Date.now(),

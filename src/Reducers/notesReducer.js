@@ -63,6 +63,13 @@ export const noteReducer = (stateNote, actionNote) => {
         trashNotes: temppTrash,
       };
 
+    case "ADD_NOTE":
+      return {
+        ...stateNote,
+        allNotes: [...stateNote.allNotes, actionNote.payload],
+        singleNote: actionNote.payload,
+      };
+
     default:
       return stateNote;
   }
