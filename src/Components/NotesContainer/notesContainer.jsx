@@ -3,8 +3,20 @@ import { useNotes } from "../../Context/NotesContext";
 import { Data } from "../../DataBase";
 import Notes from "../Notes/Notes";
 import Sidebar from "../Sidebar/Sidebar";
-import "./notesContainer.css";
+
+import styled from "@emotion/styled";
+
 function NotesContainer() {
+  const NotesContainerMain = styled.div({
+    width: "90%",
+    height: "80%",
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: " translate(-50%, -50%)",
+    display: "flex",
+  });
+
   const { dispatchNotes } = useNotes();
 
   const myData = Data.Notes;
@@ -14,10 +26,10 @@ function NotesContainer() {
   }, [dispatchNotes, myData]);
 
   return (
-    <div className="notesContainer">
+    <NotesContainerMain>
       <Sidebar />
       <Notes />
-    </div>
+    </NotesContainerMain>
   );
 }
 
