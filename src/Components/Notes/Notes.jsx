@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNotes } from "../../Context/NotesContext";
 
 import styled from "@emotion/styled";
+import { postNote } from "../../Services/postNoteApi";
+import { editNote } from "../../Services/editNoteApi";
 
 const MainNotes = styled.div({
   backgroundColor: "rgb(245, 245, 245)",
@@ -70,46 +72,54 @@ function Notes() {
 
   const { singleNote } = stateNotes;
 
-  const { id, title, body, inTrash } = singleNote;
+  const { id, title, content, is_trash } = singleNote;
 
   const [oldTitle, setTitle] = useState("");
   const [oldBody, setBody] = useState("");
 
   useEffect(() => {
-    setBody(body);
+    setBody(content);
     setTitle(title);
-  }, [title, body]);
+  }, [title, content]);
 
   const titleChangeHandler = (newTitle) => {
     setTitle(newTitle);
 
     const newSingleNote = { ...singleNote, title: newTitle };
 
-    dispatchNotes({ type: "SET_NOTE", payload: newSingleNote });
+    editNote(dispatchNotes, newSingleNote);
+
+    // dispatchNotes({ type: "SET_NOTE", payload: newSingleNote });
   };
 
   const bodyChangeHandler = (newBody) => {
     setBody(newBody);
 
-    const newSingleNote = { ...singleNote, body: newBody };
+    const newSingleNote = { ...singleNote, content: newBody };
 
-    dispatchNotes({ type: "SET_NOTE", payload: newSingleNote });
+    editNote(dispatchNotes, newSingleNote);
+
+    // dispatchNotes({ type: "SET_NOTE", payload: newSingleNote });
   };
 
   return (
     <MainNotes>
-      {inTrash && (
+      {is_trash && (
         <TrashNotes>
           <TrashNotesHeader>This is trash Note</TrashNotesHeader>
           <TrashNotesButton
-            onClick={() =>
-              dispatchNotes({ type: "RESTORE_NOTE", payload: singleNote })
-            }
+            onClick={() => {
+              postNote(dispatchNotes, singleNote);
+
+              dispatchNotes({ type: "RESTORE_NOTE", payload: singleNote });
+            }}
           >
             Restore
           </TrashNotesButton>
           <TrashNotesButton
-            onClick={() => dispatchNotes({ type: "DELETE_NOTE", payload: id })}
+            onClick={() => {
+              dispatchNotes({ type: "DELETE_NOTE", payload: id });
+            }}
           >
             Delete
           </TrashNotesButton>

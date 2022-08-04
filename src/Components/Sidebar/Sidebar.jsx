@@ -7,7 +7,7 @@ import { useNotes } from "../../Context/NotesContext";
 
 import styled from "@emotion/styled/macro";
 import NotesNames from "./NotesNames";
-
+import { postNote } from "../../Services/postNoteApi";
 const SidebarMain = styled.div({
   backgroundColor: "rgb(227, 227, 227)",
   width: "20%",
@@ -67,19 +67,12 @@ function Sidebar() {
   };
 
   const addNoteHandler = () => {
-    const newID = allNotes.length + 1;
-
-    const newNote = {
-      id: newID.toString(),
+    const NewNote = {
+      parent: null,
       title: "New Note",
-      body: "New Note Body",
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-      innerNotes: [],
-      inTrash: false,
+      content: "New Note Body",
     };
-
-    dispatchNotes({ type: "ADD_NOTE", payload: newNote });
+    postNote(dispatchNotes, NewNote);
   };
 
   return (

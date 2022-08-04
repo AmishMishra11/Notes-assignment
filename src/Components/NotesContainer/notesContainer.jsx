@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useNotes } from "../../Context/NotesContext";
-import { Data } from "../../DataBase";
 import Notes from "../Notes/Notes";
 import Sidebar from "../Sidebar/Sidebar";
 
 import styled from "@emotion/styled";
+import { getAllNotes } from "../../Services/getAllNotesApi";
 
 const NotesContainerMain = styled.div({
   width: "90%",
@@ -18,11 +18,9 @@ const NotesContainerMain = styled.div({
 function NotesContainer() {
   const { dispatchNotes } = useNotes();
 
-  const myData = Data.Notes;
-
   useEffect(() => {
-    dispatchNotes({ type: "LOAD_ALL_NOTES", payload: myData });
-  }, [dispatchNotes, myData]);
+    getAllNotes(dispatchNotes);
+  }, [dispatchNotes]);
 
   return (
     <NotesContainerMain>

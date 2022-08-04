@@ -34,7 +34,7 @@ export const noteReducer = (stateNote, actionNote) => {
         allNotes: tempAllNotes,
         trashNotes: [
           ...stateNote.trashNotes,
-          { ...removedNote, inTrash: true },
+          { ...removedNote, is_trash: true },
         ],
       };
 
@@ -43,12 +43,9 @@ export const noteReducer = (stateNote, actionNote) => {
         (item) => item.id !== actionNote.payload.id
       );
 
-      const restroedNote = { ...actionNote.payload, inTrash: false };
-
       return {
         ...stateNote,
         singleNote: stateNote.allNotes[0],
-        allNotes: [...stateNote.allNotes, restroedNote],
         trashNotes: newTrash,
       };
 
