@@ -68,8 +68,6 @@ const OptionContainer = styled.div({
 });
 function NotesNames({ item }) {
 
-  const { dispatchNotes } = useNotes();
-
   const [options, setOptionsOpen] = useState(false);
   const [trashId, setTrashId] = useState("");
 

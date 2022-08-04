@@ -8,7 +8,6 @@ import { useNotes } from "../../Context/NotesContext";
 import styled from "@emotion/styled/macro";
 import NotesNames from "./NotesNames";
 import { postNote } from "../../Services/postNoteApi";
-
 const SidebarMain = styled.div({
   backgroundColor: "rgb(227, 227, 227)",
   width: "20%",
