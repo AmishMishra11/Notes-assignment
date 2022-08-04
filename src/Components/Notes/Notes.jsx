@@ -1,7 +1,70 @@
 import React, { useEffect, useState } from "react";
 import { useNotes } from "../../Context/NotesContext";
-import "./notes.css";
 
+import styled from "@emotion/styled";
+
+const MainNotes = styled.div({
+  backgroundColor: "rgb(245, 245, 245)",
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "flex-start",
+});
+
+const NotesHeader = styled.div({
+  width: "95%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+});
+
+const NotesTitle = styled.input({
+  width: "60%",
+  wordWrap: "break-word",
+  backgroundColor: "rgb(245, 245, 245)",
+  border: "0",
+  outline: "none",
+  color: "black",
+  fontSize: "xx-large",
+  fontWeight: "600",
+});
+
+const NotesBody = styled.input({
+  marginTop: "2rem",
+  width: "60%",
+  wordWrap: "break-word",
+  backgroundColor: "rgb(245, 245, 245)",
+  border: "0",
+  outline: "none",
+  color: "black",
+  fontSize: "large",
+  fontWeight: "400",
+});
+
+const TrashNotes = styled.div({
+  backgroundColor: "rgb(245, 78, 78)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  color: "white",
+});
+
+const TrashNotesHeader = styled.h5({
+  marginRight: "2rem",
+});
+
+const TrashNotesButton = styled.button({
+  cursor: "pointer",
+  background: "none",
+  border: "2px solid white",
+  borderRadius: "5px",
+  color: "white",
+  margin: "0 5px",
+  padding: "5px 10px",
+});
 function Notes() {
   const { stateNotes, dispatchNotes } = useNotes();
 
@@ -34,43 +97,42 @@ function Notes() {
   };
 
   return (
-    <div className="notes">
+    <MainNotes>
       {inTrash && (
-        <div className="trashNote">
-          <h5>This is trash Note</h5>
-          <button
+        <TrashNotes>
+          <TrashNotesHeader>This is trash Note</TrashNotesHeader>
+          <TrashNotesButton
             onClick={() =>
               dispatchNotes({ type: "RESTORE_NOTE", payload: singleNote })
             }
           >
             Restore
-          </button>
-          <button
+          </TrashNotesButton>
+          <TrashNotesButton
             onClick={() => dispatchNotes({ type: "DELETE_NOTE", payload: id })}
           >
             Delete
-          </button>
-        </div>
+          </TrashNotesButton>
+        </TrashNotes>
       )}
-
-      <div className="notesHeader">
+      <NotesHeader>
         <h4>{title}</h4>
-      </div>
+      </NotesHeader>
 
-      <input
-        className="notesTitle"
+      <NotesTitle
         type="text"
         value={oldTitle}
-        onChange={(e) => titleChangeHandler(e.target.value)}
+        onChange={(e) => {
+          titleChangeHandler(e.target.value);
+        }}
       />
 
-      <input
-        className="notesBody"
+      <NotesBody
         type="text"
         value={oldBody}
         onChange={(e) => bodyChangeHandler(e.target.value)}
       />
-    </div>
+    </MainNotes>
   );
 }
 

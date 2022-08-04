@@ -1,25 +1,70 @@
 import React, { useState } from "react";
 
-import "./sidebar.css";
-
 import { BiRightArrow } from "react-icons/bi";
-import { FiTrash2 } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
 
 import { useNotes } from "../../Context/NotesContext";
 
+import styled from "@emotion/styled/macro";
+import NotesNames from "./NotesNames";
+
+const SidebarMain = styled.div({
+  backgroundColor: "rgb(227, 227, 227)",
+  width: "20%",
+  height: "100%",
+});
+
+const SidebarContainer = styled.div({
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+  alignItems: "center",
+  justifyContent: "space-between",
+});
+
+const NoteName = styled.div({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+});
+
+const DisplayNotes = styled.div({
+  cursor: "pointer",
+  display: "flex",
+  justifyContent: "flex-start",
+  alignItems: "center",
+  width: "100%",
+});
+
+const Trash = styled.div({
+  cursor: "pointer",
+  fontWeight: "600",
+});
+
+const AddNote = styled.div({
+  borderTop: "1px solid rgb(62, 62, 62)",
+  padding: "10px 0",
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  cursor: "pointer",
+  ":hover": { backgroundColor: "rgb(189, 189, 189)" },
+});
 function Sidebar() {
   const { stateNotes, dispatchNotes } = useNotes();
 
   const { allNotes, trashNotes } = stateNotes;
+
+  const [trashOpen, setTrashOpen] = useState(false);
 
   const showNotesFunction = (noteToBeDisplayed) => {
     const setPayload = noteToBeDisplayed;
 
     dispatchNotes({ type: "LOAD_NOTE", payload: setPayload });
   };
-
-  const [trashOpen, setTrashOpen] = useState(false);
 
   const addNoteHandler = () => {
     const newID = allNotes.length + 1;
@@ -38,41 +83,25 @@ function Sidebar() {
   };
 
   return (
-    <div className="sidebar">
-      <div className="sidebarContainer">
-        <div className="notesName">
+    <SidebarMain>
+      <SidebarContainer>
+        <NoteName>
           {allNotes.map((item) => (
-            <div key={item.id} className="allNotesDisplay">
-              <div key={item.id} className="notesDisplay">
-                <BiRightArrow />
-                <p onClick={() => showNotesFunction(item)}>{item.title}</p>
-              </div>
-
-              <div>
-                <FiTrash2
-                  className="trashIcon"
-                  onClick={() =>
-                    dispatchNotes({ type: "TRASH_NOTE", payload: item.id })
-                  }
-                />
-              </div>
-            </div>
+            <NotesNames key={item.id} item={item} />
           ))}
 
-          <div className="trash" onClick={() => setTrashOpen((prev) => !prev)}>
-            Trash
-          </div>
+          <Trash onClick={() => setTrashOpen((prev) => !prev)}>Trash</Trash>
           {trashOpen && (
             <div className="trashContainer">
               {trashNotes.length !== 0 ? (
                 <div className="trashNotes">
                   {trashNotes.map((item) => (
-                    <div key={item.id} className="notesDisplay">
+                    <DisplayNotes key={item.id}>
                       <BiRightArrow />
                       <p onClick={() => showNotesFunction(item)}>
                         {item.title}
                       </p>
-                    </div>
+                    </DisplayNotes>
                   ))}
                 </div>
               ) : (
@@ -80,13 +109,14 @@ function Sidebar() {
               )}
             </div>
           )}
-        </div>
-        <div className="addNote" onClick={addNoteHandler}>
+        </NoteName>
+
+        <AddNote onClick={addNoteHandler}>
           <AiOutlinePlus />
           Add New Note
-        </div>
-      </div>
-    </div>
+        </AddNote>
+      </SidebarContainer>
+    </SidebarMain>
   );
 }
 

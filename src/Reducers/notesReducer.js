@@ -70,6 +70,15 @@ export const noteReducer = (stateNote, actionNote) => {
         singleNote: actionNote.payload,
       };
 
+    case "DUPLICATE_NOTE":
+      const duplicateNote = {
+        ...actionNote.payload,
+        id: actionNote.payload.id + "1",
+        title: actionNote.payload.title + " Copy",
+      };
+
+      return { ...stateNote, allNotes: [...stateNote.allNotes, duplicateNote] };
+
     default:
       return stateNote;
   }
