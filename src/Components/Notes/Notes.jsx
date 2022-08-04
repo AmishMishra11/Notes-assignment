@@ -3,70 +3,69 @@ import { useNotes } from "../../Context/NotesContext";
 
 import styled from "@emotion/styled";
 
+const MainNotes = styled.div({
+  backgroundColor: "rgb(245, 245, 245)",
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "flex-start",
+});
+
+const NotesHeader = styled.div({
+  width: "95%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+});
+
+const NotesTitle = styled.input({
+  width: "60%",
+  wordWrap: "break-word",
+  backgroundColor: "rgb(245, 245, 245)",
+  border: "0",
+  outline: "none",
+  color: "black",
+  fontSize: "xx-large",
+  fontWeight: "600",
+});
+
+const NotesBody = styled.input({
+  marginTop: "2rem",
+  width: "60%",
+  wordWrap: "break-word",
+  backgroundColor: "rgb(245, 245, 245)",
+  border: "0",
+  outline: "none",
+  color: "black",
+  fontSize: "large",
+  fontWeight: "400",
+});
+
+const TrashNotes = styled.div({
+  backgroundColor: "rgb(245, 78, 78)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  color: "white",
+});
+
+const TrashNotesHeader = styled.h5({
+  marginRight: "2rem",
+});
+
+const TrashNotesButton = styled.button({
+  cursor: "pointer",
+  background: "none",
+  border: "2px solid white",
+  borderRadius: "5px",
+  color: "white",
+  margin: "0 5px",
+  padding: "5px 10px",
+});
 function Notes() {
-  const MainNotes = styled.div({
-    backgroundColor: "rgb(245, 245, 245)",
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  });
-
-  const NotesHeader = styled.div({
-    width: "95%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  });
-
-  const NotesTitle = styled.input({
-    width: "60%",
-    wordWrap: "break-word",
-    backgroundColor: "rgb(245, 245, 245)",
-    border: "0",
-    outline: "none",
-    color: "black",
-    fontSize: "xx-large",
-    fontWeight: "600",
-  });
-
-  const NotesBody = styled.input({
-    marginTop: "2rem",
-    width: "60%",
-    wordWrap: "break-word",
-    backgroundColor: "rgb(245, 245, 245)",
-    border: "0",
-    outline: "none",
-    color: "black",
-    fontSize: "large",
-    fontWeight: "400",
-  });
-
-  const TrashNotes = styled.div({
-    backgroundColor: "rgb(245, 78, 78)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    color: "white",
-  });
-
-  const TrashNotesHeader = styled.h5({
-    marginRight: "2rem",
-  });
-
-  const TrashNotesButton = styled.button({
-    cursor: "pointer",
-    background: "none",
-    border: "2px solid white",
-    borderRadius: "5px",
-    color: "white",
-    margin: "0 5px",
-    padding: "5px 10px",
-  });
-
   const { stateNotes, dispatchNotes } = useNotes();
 
   const { singleNote } = stateNotes;

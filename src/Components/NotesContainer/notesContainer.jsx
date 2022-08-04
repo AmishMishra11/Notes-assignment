@@ -6,17 +6,16 @@ import Sidebar from "../Sidebar/Sidebar";
 
 import styled from "@emotion/styled";
 
+const NotesContainerMain = styled.div({
+  width: "90%",
+  height: "80%",
+  position: "fixed",
+  top: "50%",
+  left: "50%",
+  transform: " translate(-50%, -50%)",
+  display: "flex",
+});
 function NotesContainer() {
-  const NotesContainerMain = styled.div({
-    width: "90%",
-    height: "80%",
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    transform: " translate(-50%, -50%)",
-    display: "flex",
-  });
-
   const { dispatchNotes } = useNotes();
 
   const myData = Data.Notes;
