@@ -8,8 +8,6 @@ export const deleteNote = async (dispatchNotes, noteId) => {
       url: "https://clientellnotes.azurewebsites.net/api/v1/delete/notes/",
       data: { note_id: noteId },
     });
-
-    // console.log(res);
   } catch (e) {
     console.log("error occured: ", e);
   }

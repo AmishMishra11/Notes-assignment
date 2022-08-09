@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNotes } from "../../Context/NotesContext";
 
 import styled from "@emotion/styled";
@@ -6,7 +6,7 @@ import { postNote } from "../../Services/postNoteApi";
 import { editNote } from "../../Services/editNoteApi";
 
 const MainNotes = styled.div({
-  backgroundColor: "rgb(245, 245, 245)",
+  backgroundColor: "#FFFFFF",
   width: "100%",
   height: "100%",
   display: "flex",
@@ -25,7 +25,6 @@ const NotesHeader = styled.div({
 const NotesTitle = styled.input({
   width: "60%",
   wordWrap: "break-word",
-  backgroundColor: "rgb(245, 245, 245)",
   border: "0",
   outline: "none",
   color: "black",
@@ -33,11 +32,12 @@ const NotesTitle = styled.input({
   fontWeight: "600",
 });
 
-const NotesBody = styled.input({
+const NotesBody = styled.textarea({
   marginTop: "2rem",
   width: "60%",
+  height: "60%",
   wordWrap: "break-word",
-  backgroundColor: "rgb(245, 245, 245)",
+  fontFamily: "'Inter', sans-serif",
   border: "0",
   outline: "none",
   color: "black",
@@ -46,7 +46,7 @@ const NotesBody = styled.input({
 });
 
 const TrashNotes = styled.div({
-  backgroundColor: "rgb(245, 78, 78)",
+  backgroundColor: "#C23934",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -56,18 +56,20 @@ const TrashNotes = styled.div({
 
 const TrashNotesHeader = styled.h5({
   marginRight: "2rem",
+  fontWeight: "500",
 });
 
 const TrashNotesButton = styled.button({
   cursor: "pointer",
-  background: "none",
-  border: "2px solid white",
+  background: "#CD4B46",
+  border: "2px solid transparent",
   borderRadius: "5px",
   color: "white",
   margin: "0 5px",
   padding: "5px 10px",
 });
 function Notes() {
+  const inputRef = useRef();
   const { stateNotes, dispatchNotes } = useNotes();
 
   const { singleNote } = stateNotes;
@@ -80,33 +82,43 @@ function Notes() {
   useEffect(() => {
     setBody(content);
     setTitle(title);
-  }, [title, content]);
+    // inputRef.current.select();
+    // eslint-disable-next-line
+  }, [id]);
+
+  const deboundingFunction = (callbackFunc, delay) => {
+    let timer;
+    return function () {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        callbackFunc.apply(context, args);
+      }, delay);
+    };
+  };
 
   const titleChangeHandler = (newTitle) => {
-    setTitle(newTitle);
-
     const newSingleNote = { ...singleNote, title: newTitle };
 
     editNote(dispatchNotes, newSingleNote);
-
-    // dispatchNotes({ type: "SET_NOTE", payload: newSingleNote });
   };
 
   const bodyChangeHandler = (newBody) => {
-    setBody(newBody);
-
     const newSingleNote = { ...singleNote, content: newBody };
 
     editNote(dispatchNotes, newSingleNote);
-
-    // dispatchNotes({ type: "SET_NOTE", payload: newSingleNote });
   };
+
+  const debounceTitle = deboundingFunction(titleChangeHandler, 300);
+
+  const debounceBody = deboundingFunction(bodyChangeHandler, 300);
 
   return (
     <MainNotes>
       {is_trash && (
         <TrashNotes>
-          <TrashNotesHeader>This is trash Note</TrashNotesHeader>
+          <TrashNotesHeader>This note is in trash </TrashNotesHeader>
           <TrashNotesButton
             onClick={() => {
               postNote(dispatchNotes, singleNote);
@@ -121,7 +133,7 @@ function Notes() {
               dispatchNotes({ type: "DELETE_NOTE", payload: id });
             }}
           >
-            Delete
+            Delete Permently
           </TrashNotesButton>
         </TrashNotes>
       )}
@@ -130,17 +142,22 @@ function Notes() {
       </NotesHeader>
 
       <NotesTitle
+        ref={inputRef}
         type="text"
         value={oldTitle}
         onChange={(e) => {
-          titleChangeHandler(e.target.value);
+          setTitle(e.target.value);
+          debounceTitle(e.target.value);
         }}
       />
 
       <NotesBody
         type="text"
         value={oldBody}
-        onChange={(e) => bodyChangeHandler(e.target.value)}
+        onChange={(e) => {
+          setBody(e.target.value);
+          debounceBody(e.target.value);
+        }}
       />
     </MainNotes>
   );
