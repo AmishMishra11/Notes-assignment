@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const editNote = async (dispatchNotes, NewNote) => {
   const { id, title, content } = NewNote;
+
   try {
     const res = await axios({
       method: "PATCH",

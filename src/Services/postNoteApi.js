@@ -8,7 +8,11 @@ export const postNote = async (dispatchNotes, NewNote) => {
       data: { ...NewNote },
     });
 
-    dispatchNotes({ type: "ADD_NOTE", payload: res.data });
+    if (NewNote.parent) {
+      dispatchNotes({ type: "ADD_CHILD_NOTE", payload: res.data });
+    } else {
+      dispatchNotes({ type: "ADD_NOTE", payload: res.data });
+    }
   } catch (e) {
     console.log("error occured: ", e);
   }

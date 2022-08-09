@@ -12,12 +12,14 @@ export const noteReducer = (stateNote, actionNote) => {
 
     case "SET_NOTE":
       const newAllNote = stateNote.allNotes.map((item) =>
-        item.id === actionNote.payload.id ? actionNote.payload : item
+        item.id === actionNote.payload.root_note.id
+          ? actionNote.payload.root_note
+          : item
       );
 
       return {
         ...stateNote,
-        singleNote: actionNote.payload,
+        singleNote: actionNote.payload.updated_note,
         allNotes: newAllNote,
       };
 
@@ -32,6 +34,7 @@ export const noteReducer = (stateNote, actionNote) => {
       return {
         ...stateNote,
         allNotes: tempAllNotes,
+        singleNote: stateNote.allNotes[0],
         trashNotes: [
           ...stateNote.trashNotes,
           { ...removedNote, is_trash: true },
@@ -57,24 +60,31 @@ export const noteReducer = (stateNote, actionNote) => {
       return {
         ...stateNote,
         singleNote: stateNote.allNotes[0],
+
         trashNotes: temppTrash,
       };
 
     case "ADD_NOTE":
+      const allNotes = [...stateNote.allNotes, actionNote.payload.root_note];
+
       return {
         ...stateNote,
-        allNotes: [...stateNote.allNotes, actionNote.payload],
-        singleNote: actionNote.payload,
+        singleNote: actionNote.payload.created_note,
+        allNotes,
       };
 
-    case "DUPLICATE_NOTE":
-      const duplicateNote = {
-        ...actionNote.payload,
-        id: actionNote.payload.id + "1",
-        title: actionNote.payload.title + " Copy",
-      };
+    case "ADD_CHILD_NOTE":
+      const newAllNotesWithChild = stateNote.allNotes.map((item) =>
+        item.id === actionNote.payload.root_note.id
+          ? actionNote.payload.root_note
+          : item
+      );
 
-      return { ...stateNote, allNotes: [...stateNote.allNotes, duplicateNote] };
+      return {
+        ...stateNote,
+        allNotes: newAllNotesWithChild,
+        singleNote: actionNote.payload.created_note,
+      };
 
     default:
       return stateNote;
