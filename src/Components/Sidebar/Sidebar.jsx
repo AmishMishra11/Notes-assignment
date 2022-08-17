@@ -76,8 +76,9 @@ const NoteDisplay = styled.div({
   alignItems: "center",
   justifyContent: "flex-start",
   width: "90%",
-  // overflowY: "auto",
-  // height: "20rem",
+  overflowY: "auto",
+  overflowX: "hidden",
+  height: "20rem",
 });
 
 const DisplayNotes = styled.div({

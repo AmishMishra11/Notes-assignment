@@ -4,6 +4,7 @@ import { useNotes } from "../../Context/NotesContext";
 import styled from "@emotion/styled";
 import { postNote } from "../../Services/postNoteApi";
 import { editNote } from "../../Services/editNoteApi";
+import Editor from "../Editor";
 
 const MainNotes = styled.div({
   backgroundColor: "#FFFFFF",
@@ -30,6 +31,12 @@ const NotesTitle = styled.input({
   color: "black",
   fontSize: "xx-large",
   fontWeight: "600",
+});
+
+const NotesEditor = styled.div({
+  marginTop: "1rem",
+  width: "60%",
+  height: "60%",
 });
 
 const NotesBody = styled.textarea({
@@ -77,10 +84,8 @@ function Notes() {
   const { id, title, content, is_trash } = singleNote;
 
   const [oldTitle, setTitle] = useState("");
-  const [oldBody, setBody] = useState("");
 
   useEffect(() => {
-    setBody(content);
     setTitle(title);
     // inputRef.current.select();
     // eslint-disable-next-line
@@ -104,15 +109,7 @@ function Notes() {
     editNote(dispatchNotes, newSingleNote);
   };
 
-  const bodyChangeHandler = (newBody) => {
-    const newSingleNote = { ...singleNote, content: newBody };
-
-    editNote(dispatchNotes, newSingleNote);
-  };
-
   const debounceTitle = deboundingFunction(titleChangeHandler, 300);
-
-  const debounceBody = deboundingFunction(bodyChangeHandler, 300);
 
   return (
     <MainNotes>
@@ -150,15 +147,11 @@ function Notes() {
           debounceTitle(e.target.value);
         }}
       />
+      <NotesEditor>
+        {content && <Editor content={content} id={id} />}
+      </NotesEditor>
 
-      <NotesBody
-        type="text"
-        value={oldBody}
-        onChange={(e) => {
-          setBody(e.target.value);
-          debounceBody(e.target.value);
-        }}
-      />
+      {/* <NotesBody type="text" placeholder="test" /> */}
     </MainNotes>
   );
 }

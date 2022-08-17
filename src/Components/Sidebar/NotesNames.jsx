@@ -104,9 +104,9 @@ const MyNoteAdd = styled.div({
   cursor: "pointer",
 
   position: "relative",
+  zIndex: "999",
 
   "& .addNoteHeader": {
-    zIndex: "2",
     display: "none",
     position: "absolute",
     width: "5rem",
@@ -123,7 +123,8 @@ const MyNoteAdd = styled.div({
     backgroundColor: "#F0F2F5",
 
     "& .addNoteHeader": {
-      display: "block",
+      // display: "block",
+      display: "none",
     },
   },
 });
